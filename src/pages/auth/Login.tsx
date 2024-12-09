@@ -16,6 +16,7 @@ import usuarios from "@/api/usuario";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "@/redux/slices/authSlice";
+import { validarExpresion } from "@/utils/utils";
 
 const Login: React.FC = () => {
   const [User, setUser] = useState<string>("");
@@ -25,10 +26,6 @@ const Login: React.FC = () => {
   const isButtonDisabled = !(User && Pass);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const showPassHandler = () => {
-    setShowPassword(!showPassword);
-  };
 
   const validarUsuario = () => {
     setLoading(true);
@@ -84,6 +81,7 @@ const Login: React.FC = () => {
                   label="Usuario"
                   fullWidth
                   margin="normal"
+                  onKeyDown={(e) => validarExpresion(e, /^e\d*$/i)}
                   onChange={(e) => setUser(e.target.value)}
                   slotProps={{ htmlInput: { maxLength: 7 } }}
                 />
@@ -107,8 +105,7 @@ const Login: React.FC = () => {
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton
-                            aria-label="description for action"
-                            onClick={showPassHandler}
+                            onClick={() =>  setShowPassword(!showPassword)}
                           >
                             {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
