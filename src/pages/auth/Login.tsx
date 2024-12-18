@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   const [Pass, setPass] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const isButtonDisabled = !(User && Pass);
+  const isButtonDisabled :boolean =  !(User && Pass);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
