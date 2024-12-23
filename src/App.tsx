@@ -14,9 +14,13 @@ const App = () => {
         <Router>
           <div>
             <ToastContainer />
-            <Header />
-            <AppRoutes />
-            <Footer />
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow bg-gray-100 flex ">
+              <AppRoutes />
+              </main>
+              <Footer />
+            </div>
           </div>
         </Router>
       </Provider>
