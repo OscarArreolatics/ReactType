@@ -6,7 +6,8 @@ import auth from "@/api/auth";
 import { setAuth } from "@/redux/slices/authSlice";
 import Home from "@/pages/Home";
 import Login from "@/pages/auth/Login";
-import Dashboard from "@/pages/Dashboard";
+import MyWork from "@/pages/dashboard/MyWork";
+import Projects from "@/pages/dashboard/Projects";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -32,11 +33,20 @@ const AppRouter = () => {
     <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/Login" element={<Login />} />
+      {/* rutas Dashboard */}
       <Route
-        path="/dash"
+        path="/mywork"
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <MyWork />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/projects"
+        element={
+          <ProtectedRoute>
+            <Projects />
           </ProtectedRoute>
         }
       />

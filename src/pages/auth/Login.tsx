@@ -50,18 +50,18 @@ const Login: React.FC = () => {
               email: result.user.email,
               name: result.user.name,
             },
-            token: result.token,
+            isAuthenticated: true,
           })
         );
       
         toast.success("Bienvenido !!!", {
-          position: "top-center",
+          position: "top-right",
           theme: "colored",
         });
       })
       .finally(() => {
         setLoading(false);
-        navigate("/dash");
+        navigate("/mywork");
       });
   };
 

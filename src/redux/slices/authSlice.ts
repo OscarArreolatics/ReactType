@@ -7,20 +7,22 @@ interface User {
 
 interface LoginPayload {
   user: User;
-  token: string;
+  isAuthenticated: boolean;
 }
 
 interface AuthState {
+  user: User | null;
   isAuthenticated: boolean;
 }
 
 const initialState: AuthState = {
-  isAuthenticated: false,
+  user: null,
+  isAuthenticated: false
 };
 
 // Verifica si ya hay información de usuario en el localStorage
-const storedUser = localStorage.getItem('token');
-const initialStateFromStorage = storedUser ? { isAuthenticated : true} : initialState;
+const storedUser = localStorage.getItem('user');
+const initialStateFromStorage = storedUser ? JSON.parse(storedUser) : initialState;
 
 const authSlice = createSlice({
   name: 'auth',
@@ -29,12 +31,13 @@ const authSlice = createSlice({
     login: (state, action: PayloadAction<LoginPayload>) => {
       state.isAuthenticated = true;
       // Guardar en localStorage
-      localStorage.setItem('token', JSON.stringify(action.payload.token));
+      state.user = action.payload.user;
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     logout: (state) => {
       state.isAuthenticated = false;
       // Eliminar de localStorage
-      localStorage.removeItem('token');
+      localStorage.removeItem('user');
     },
     setAuth: (state, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
