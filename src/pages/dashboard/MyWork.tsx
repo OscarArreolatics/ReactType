@@ -8,9 +8,27 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useEffect, useCallback, useState } from "react";
+import task, { TaskI } from "@/api/task";
+import TableTasks from "@/components/task/TableTasks";
 
 const MyWork: React.FC = () => {
-  
+  const [Tasks, setTasks] = useState<TaskI[]>();
+  const fetchProject = useCallback(async () => {
+    try {
+      const res = await task.getTasksUser();
+      if (res) {
+        setTasks(res);
+      }
+    } catch (error) {
+      console.error("Error fetching project:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProject();
+  }, [fetchProject]);
+
   return (
     <div className="bg-slate-200 pt-12 w-full">
       <Sidebar>
@@ -22,32 +40,33 @@ const MyWork: React.FC = () => {
           >
             <h1 className="text-3xl font-medium">Mi Trabajo</h1>
             <CardContent>
-              <Accordion defaultExpanded className="border border-amber-900">
+              <Accordion className="border border-amber-900">
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1-content"
                   id="panel1-header"
                 >
                   <div>
-                      <span className="text-amber-900 font-bold text-lg">Fecha Pasadas</span>
-                      <span> (0) Elementos</span>
+                    <span className="text-amber-900 font-bold text-lg">
+                      Fecha Pasadas
+                    </span>
+                    <span className="font-bold"> ({Tasks?.length})</span> Elementos
                   </div>
                 </AccordionSummary>
                 <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  {!Tasks ? "Sin tareas Asignadas" : <TableTasks tasks={Tasks} />}
                 </AccordionDetails>
               </Accordion>
+
               <Accordion className="border border-cyan-600 mt-1">
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel2-content"
                   id="panel2-header"
                 >
-                 <div>
-                      <span className="text-cyan-600 font-bold text-lg">Hoy</span>
-                      <span> (0) Elementos</span>
+                  <div>
+                    <span className="text-cyan-600 font-bold text-lg">Hoy</span>
+                    <span> (0) Elementos</span>
                   </div>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -56,6 +75,7 @@ const MyWork: React.FC = () => {
                   eget.
                 </AccordionDetails>
               </Accordion>
+
               <Accordion className="border border-emerald-400 mt-1">
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -63,8 +83,10 @@ const MyWork: React.FC = () => {
                   id="panel3-header"
                 >
                   <div>
-                      <span className="text-emerald-400 font-bold text-lg">Proxima Semana</span>
-                      <span> (0) Elementos</span>
+                    <span className="text-emerald-400 font-bold text-lg">
+                      Proxima Semana
+                    </span>
+                    <span> (0) Elementos</span>
                   </div>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -73,6 +95,7 @@ const MyWork: React.FC = () => {
                   eget.
                 </AccordionDetails>
               </Accordion>
+
               <Accordion className="border border-amber-600 mt-1">
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -80,8 +103,10 @@ const MyWork: React.FC = () => {
                   id="panel4-header"
                 >
                   <div>
-                      <span className="text-amber-600 font-bold text-lg">Mas adelante</span>
-                      <span> (0) Elementos</span>
+                    <span className="text-amber-600 font-bold text-lg">
+                      Mas adelante
+                    </span>
+                    <span> (0) Elementos</span>
                   </div>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -90,6 +115,7 @@ const MyWork: React.FC = () => {
                   eget.
                 </AccordionDetails>
               </Accordion>
+
               <Accordion className="border border-blue-800 mt-1">
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -97,8 +123,10 @@ const MyWork: React.FC = () => {
                   id="panel5-header"
                 >
                   <div>
-                      <span className="text-blue-800 font-bold text-lg">Fin fecha</span>
-                      <span> (0) Elementos</span>
+                    <span className="text-blue-800 font-bold text-lg">
+                      Fin fecha
+                    </span>
+                    <span> (0) Elementos</span>
                   </div>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -107,6 +135,7 @@ const MyWork: React.FC = () => {
                   eget.
                 </AccordionDetails>
               </Accordion>
+              
             </CardContent>
           </Card>
         </div>

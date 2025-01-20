@@ -11,10 +11,11 @@ import {
   Menu,
   ListItemIcon,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import { ProjectI } from "@/api/project";
 import EditProject from "./EditProject";
 import DeleteProject from "./DeleteProject";
-import StatusLabel from "./StatusLabel";
+import StatusLabel from "../StatusLabel";
 
 const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
   const colorPriority = (priority: string) => {
@@ -60,7 +61,7 @@ const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
   return (
     <>
       <Card className="h-full relative pb-8" variant="outlined">
-        <div className="absolute top-0 right-0">
+        <div className="absolute top-0 right-0 z-50">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -114,65 +115,66 @@ const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
               </ListItemIcon>
               Editar
             </MenuItem>
-            <MenuItem onClick={() => setOpenDeleteDialog(true)} >
+            <MenuItem onClick={() => setOpenDeleteDialog(true)}>
               <ListItemIcon>
-                <DeleteIcon className="text-red-500"/>
+                <DeleteIcon className="text-red-500" />
               </ListItemIcon>
               <span className="text-red-500">Eliminar</span>
             </MenuItem>
           </Menu>
         </div>
-        <Grid container sx={{ height: "100%" }}>
-          <Grid
-            size={1}
-            className="py-3"
-            sx={{ backgroundColor: project.color }}
-          ></Grid>
-          <Grid size={10} className="p-3 capitalize">
-            <div>
-              <div className="font-semibold text-lg capitalize">
-                {project.name}
-              </div>
-              <div className="text-sm mb-3 capitalize">
-                {project.description}
-              </div>
+        <Link to={"/project/" + project._id}>
+          <Grid container sx={{ height: "100%" }}>
+            <Grid
+              size={1}
+              className="py-3"
+              sx={{ backgroundColor: project.color }}
+            ></Grid>
+            <Grid size={10} className="p-3 capitalize">
               <div>
-                {project.tags.map((tag, tagIndex) => (
-                  <Chip
-                    key={tagIndex}
-                    label={tag}
-                    className="me-1 capitalize"
-                    color="success"
-                    size="small"
-                  />
-                ))}
+                <div className="font-semibold text-lg capitalize">
+                  {project.name}
+                </div>
+                <div className="text-sm mb-3 capitalize">
+                  {project.description}
+                </div>
+                <div>
+                  {project.tags.map((tag, tagIndex) => (
+                    <Chip
+                      key={tagIndex}
+                      label={tag}
+                      className="me-1 capitalize"
+                      color="success"
+                      size="small"
+                    />
+                  ))}
+                </div>
+                <div className="my-3">
+                  Tareas Abiertas ({project.tasks.length})
+                </div>
+                <div className="text-sm capitalize">
+                  Administrador: Oscar Arreola
+                </div>
               </div>
-              <div className="my-3">
-                Tareas Abiertas ({project.tasks.length})
-              </div>
-              <div className="text-sm capitalize">
-                Administrador: Oscar Arreola
-              </div>
-            </div>
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Grid container size={12} className="absolute bottom-0">
-          
-          <Grid
-            size={{ xs: 12, md: 6 }}
-            className={
-              colorPriority(project.priority) +
-              " text-white text-sm py-1 text-center capitalize flex"
-            }
-            style={{ alignItems: "center", justifyContent: "center" }}
-          >
+          <Grid container size={12} className="absolute bottom-0">
+            <Grid
+              size={{ xs: 12, md: 6 }}
+              className={
+                colorPriority(project.priority) +
+                " text-white text-sm py-1 text-center capitalize flex"
+              }
+              style={{ alignItems: "center", justifyContent: "center" }}
+            >
               Prioridad: {project.priority}
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <StatusLabel type={project.status} />
+            </Grid>
           </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
-            <StatusLabel type={project.status} />
-          </Grid>
-        </Grid>
+        </Link>
       </Card>
 
       {/* Diálogo de edición */}

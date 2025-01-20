@@ -2,6 +2,7 @@ import React from "react";
 import AlarmsIcon from "@mui/icons-material/AccessAlarmsOutlined";
 import CheckIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import PlayIcon from "@mui/icons-material/PlayCircleFilledWhiteOutlined";
+import PauseIcon from '@mui/icons-material/PauseCircleOutline';
 
 interface labelprops {
     type: string;
@@ -17,7 +18,7 @@ const StatusLabel: React.FC<labelprops> = ({type}) => {
           case "completado":
             return "bg-blue-400";
           default:
-            return "";
+            return "bg-slate-400";
         }
       })();
 
@@ -26,17 +27,17 @@ const StatusLabel: React.FC<labelprops> = ({type}) => {
           case "activo":
             return <PlayIcon/>;
           case "pausado":
-            return <AlarmsIcon/>;
+            return <PauseIcon/>;
           case "completado":
             return <CheckIcon/>;
           default:
-            return "";
+            return <AlarmsIcon/>;
         }
       })();
 
   return (
     <>
-      <div className={BgColor}>
+      <div className={BgColor + " w-full h-full flex justify-center items-center"} >
         <div className="text-white text-sm py-1 capitalize flex" style={{alignItems: "center", justifyContent: "center"}} >
            <span className="me-2">{Icon}</span> {type}
         </div>

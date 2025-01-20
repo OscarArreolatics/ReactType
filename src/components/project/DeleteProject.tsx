@@ -33,10 +33,22 @@ const DeleteProject: React.FC<DeleteProjectProps> = ({
         if (!result) {
           return;
         }
-        toast.info("Proyecto eliminado correctamente", {
-          position: "top-right",
-          theme: "colored",
-        });
+
+        if (result.code == "NOT_FOUND") {
+          toast.error(result.msg, {
+            position: "top-center",
+            theme: "colored",
+          });
+          return;
+        }
+
+        if (result.code == "COMPLETED") {
+          toast.info("Proyecto eliminado correctamente", {
+            position: "top-right",
+            theme: "colored",
+          });
+        }
+
         fetchProjects();
         onClose();
       })

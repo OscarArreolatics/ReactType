@@ -32,3 +32,22 @@ export function validarExpresion(
   }
 }
 
+export const formatDate = (value?: Date): string => {
+  let date: Date;
+
+  if (value instanceof Date) {
+    date = value;
+  } else if (typeof value === 'string') {
+    date = new Date(value);
+  } else {
+    return "Fecha no válida"; 
+  }
+
+  if (isNaN(date.getTime())) {
+    return "Fecha no válida"; 
+  }
+
+  const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+  return date.toLocaleDateString('es-ES', options);
+};
+

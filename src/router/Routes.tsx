@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import Login from "@/pages/auth/Login";
 import MyWork from "@/pages/dashboard/MyWork";
 import Projects from "@/pages/dashboard/Projects";
+import ProjectDetails from "@/pages/dashboard/ProjectDetail"
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,14 @@ const AppRouter = () => {
         element={
           <ProtectedRoute>
             <Projects />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/project/:id"
+        element={
+          <ProtectedRoute>
+            <ProjectDetails />
           </ProtectedRoute>
         }
       />
