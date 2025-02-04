@@ -150,7 +150,7 @@ const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
                   ))}
                 </div>
                 <div className="my-3">
-                  Tareas Abiertas ({project.tasks.length})
+                  Tareas Abiertas <span className="font-bold">({project.incompleteTasks})</span>
                 </div>
                 <div className="text-sm capitalize">
                   Administrador: Oscar Arreola

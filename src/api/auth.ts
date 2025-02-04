@@ -11,6 +11,7 @@ interface ValidarUsuarioParams {
 }
 
 interface userInfo {
+  _id: string;
   name: string;
   email: string;
 }
@@ -38,7 +39,8 @@ const ValidarUsuario = async (
       params,
       conexion.headers
     );
-
+    console.log(response.data);
+    
     return response.data;
   } catch (error) {
     catchError(error);

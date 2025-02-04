@@ -7,11 +7,9 @@ interface params {
 }
 
 const AvatarProject: React.FC<params> = (props) => {
-    console.log(props);
-    
   return (
     <>
-      <Avatar className="p-2" sx={{ backgroundColor: props.project.color }}>
+      <Avatar className="p-2 text-white" sx={{ backgroundColor: props.project.color }}>
         {props.project.name
           .split(" ")
           .slice(0, 2)

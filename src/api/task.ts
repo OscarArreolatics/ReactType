@@ -8,47 +8,55 @@ export interface TaskI {
   _id: string;
   title: string;
   description: string;
-  projectId: string; 
-  assignedTo?: string; 
+  projectId: {
+    _id: string;
+    name: string;
+  };
+  assignedTo?: assignedTo;
   stage: "planeacion" | "programacion" | "validacion" | "finalizada";
-  status: "pendiente" | "en progreso" | "completada" | "cancelada";
+  status: "pendiente" | "en progreso" | "completado" | "cancelada";
   priority: "alta" | "media" | "baja";
-  dueDate?: Date; 
+  dueDate?: Date;
   completedAt: Date;
   attachments: string[];
   comments: {
-    userId: string; 
-    comment: string; 
-    createdAt: Date; 
-  }[]; 
+    userId: string;
+    comment: string;
+    createdAt: Date;
+  }[];
   activityLog: {
-    action: string; 
-    userId: string; 
+    action: string;
+    userId: string;
     timestamp: Date;
-  }[]; 
+  }[];
 }
 
-/* interface ParamsTask {
-  id?: string;
+export interface assignedTo {
+  _id: string;
   name: string;
-  description: string;
-  priority: string;
-  color: string;
-  startDate: Date | null;
-  endDate?: Date | null;
-  status?: string;
-} */
+}
 
+interface ParamsTask {
+  id?: string;
+  title?: string;
+  description?: string;
+  projectId?: string;
+  assignedTo?: string;
+  stage?: string;
+  status?: string;
+  priority?: string;
+  dueDate?: Date;
+}
 
 export interface CodeCath {
-  code: string,
-  msg: string
+  code: string;
+  msg: string;
 }
 
 const getTasksUser = async (): Promise<TaskI[] | null> => {
   try {
     const response: AxiosResponse<TaskI[] | null> = await axios.get(
-      recurso+"user",
+      recurso + "user",
       {
         withCredentials: true,
       }
@@ -60,6 +68,53 @@ const getTasksUser = async (): Promise<TaskI[] | null> => {
   }
 };
 
+const getTasksByProject = async (id: string): Promise<TaskI[] | null> => {
+  try {
+    const response: AxiosResponse<TaskI[] | null> = await axios.get(
+      recurso + "project/" + id,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    catchError(error);
+    return null;
+  }
+};
 
+const createTask = async (params: ParamsTask): Promise<TaskI | null> => {
+  try {
+    const response: AxiosResponse<TaskI | null> = await axios.post(
+      recurso,
+      params,
+      {
+        withCredentials: true,
+      }
+    );
 
-export default { getTasksUser};
+    return response.data;
+  } catch (error) {
+    catchError(error);
+    return null;
+  }
+};
+
+const updateTask = async (id: string, params: ParamsTask): Promise<TaskI | null> => {
+  try {
+    const response: AxiosResponse<TaskI | null> = await axios.put(
+      recurso+id,
+      params,
+      {
+        withCredentials: true,
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    catchError(error);
+    return null;
+  }
+};
+
+export default { getTasksUser, getTasksByProject, createTask, updateTask };

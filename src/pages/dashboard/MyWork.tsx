@@ -13,12 +13,49 @@ import task, { TaskI } from "@/api/task";
 import TableTasks from "@/components/task/TableTasks";
 
 const MyWork: React.FC = () => {
-  const [Tasks, setTasks] = useState<TaskI[]>();
+  const [TasksBefore, setTasksBefore] = useState<TaskI[]>();
+  const [TasksToday, setTasksToday] = useState<TaskI[]>();
+  const [TasksNextWeek, setTasksNextWeek] = useState<TaskI[]>();
+  const [TasksAfter, setTasksAfter] = useState<TaskI[]>();
+  const [TasksNoDate, setTasksNoDate] = useState<TaskI[]>();
+
   const fetchProject = useCallback(async () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Remover horas para comparar solo la fecha
+
+    const nextWeek = new Date(today);
+    nextWeek.setDate(nextWeek.getDate() + 7); // Definir la siguiente semana
+
+    const nextDay = new Date(today);
+    nextDay.setDate(nextDay.getDate() + 1); // Definir el siguiente dia
     try {
       const res = await task.getTasksUser();
       if (res) {
-        setTasks(res);
+        const resul = res.filter((task) => task.status !== "completado");
+        setTasksBefore(
+          resul.filter((task) => task.dueDate && new Date(task.dueDate) < today)
+        );
+        setTasksToday(
+          resul.filter(
+            (task) =>
+              task.dueDate &&
+              new Date(task.dueDate).toDateString() === today.toDateString()
+          )
+        );
+        setTasksNextWeek(
+          resul.filter(
+            (task) =>
+              task.dueDate &&
+              new Date(task.dueDate) >= nextDay &&
+              new Date(task.dueDate) < nextWeek
+          )
+        );
+        setTasksAfter(
+          resul.filter(
+            (task) => task.dueDate && new Date(task.dueDate) >= nextWeek
+          )
+        );
+        setTasksNoDate(res.filter((task) => !task.dueDate));
       }
     } catch (error) {
       console.error("Error fetching project:", error);
@@ -50,11 +87,16 @@ const MyWork: React.FC = () => {
                     <span className="text-amber-900 font-bold text-lg">
                       Fecha Pasadas
                     </span>
-                    <span className="font-bold"> ({Tasks?.length})</span> Elementos
+                    <span className="font-bold"> ({TasksBefore?.length})</span>{" "}
+                    Elementos
                   </div>
                 </AccordionSummary>
-                <AccordionDetails>
-                  {!Tasks ? "Sin tareas Asignadas" : <TableTasks tasks={Tasks} />}
+                <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
+                  {!TasksBefore ? (
+                    "Sin tareas Asignadas"
+                  ) : (
+                    <TableTasks tasks={TasksBefore} />
+                  )}
                 </AccordionDetails>
               </Accordion>
 
@@ -66,13 +108,19 @@ const MyWork: React.FC = () => {
                 >
                   <div>
                     <span className="text-cyan-600 font-bold text-lg">Hoy</span>
-                    <span> (0) Elementos</span>
+                    <span className="font-bold">
+                      {" "}
+                      ({TasksToday?.length})
+                    </span>{" "}
+                    Elementos
                   </div>
                 </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
+                  {!TasksToday ? (
+                    "Sin tareas Asignadas"
+                  ) : (
+                    <TableTasks tasks={TasksToday} />
+                  )}
                 </AccordionDetails>
               </Accordion>
 
@@ -86,13 +134,19 @@ const MyWork: React.FC = () => {
                     <span className="text-emerald-400 font-bold text-lg">
                       Proxima Semana
                     </span>
-                    <span> (0) Elementos</span>
+                    <span className="font-bold">
+                      {" "}
+                      ({TasksNextWeek?.length})
+                    </span>{" "}
+                    Elementos
                   </div>
                 </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
+                  {!TasksNextWeek ? (
+                    "Sin tareas Asignadas"
+                  ) : (
+                    <TableTasks tasks={TasksNextWeek} />
+                  )}
                 </AccordionDetails>
               </Accordion>
 
@@ -106,13 +160,16 @@ const MyWork: React.FC = () => {
                     <span className="text-amber-600 font-bold text-lg">
                       Mas adelante
                     </span>
-                    <span> (0) Elementos</span>
+                    <span className="font-bold"> ({TasksAfter?.length})</span>{" "}
+                    Elementos
                   </div>
                 </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
+                  {!TasksAfter ? (
+                    "Sin tareas Asignadas"
+                  ) : (
+                    <TableTasks tasks={TasksAfter} />
+                  )}
                 </AccordionDetails>
               </Accordion>
 
@@ -126,16 +183,18 @@ const MyWork: React.FC = () => {
                     <span className="text-blue-800 font-bold text-lg">
                       Fin fecha
                     </span>
-                    <span> (0) Elementos</span>
+                    <span className="font-bold"> ({TasksNoDate?.length})</span>{" "}
+                    Elementos
                   </div>
                 </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
+                  {!TasksNoDate ? (
+                    "Sin tareas Asignadas"
+                  ) : (
+                    <TableTasks tasks={TasksNoDate} />
+                  )}
                 </AccordionDetails>
               </Accordion>
-              
             </CardContent>
           </Card>
         </div>

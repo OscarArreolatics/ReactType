@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
+import "@/css/tableTaskStyle.css";
 import type { ColDef } from "ag-grid-community";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { Box } from "@mui/material";
-import { TaskI } from "@/api/task";
 import { formatDate } from "@/utils/utils";
-import StatusLabel from "../StatusLabel";
-import PriorityLabel from "../PriorityLabel";
+import StatusTaskLabel from "@/components/task/StatusTaskLabel";
+import PriorityTaskLabel from "@/components/task/PriorityTaskLabel";
 import AvatarProject from "../AvatarProject";
 import AvatarUser from "../AvatarUser";
-import "@/css/tableTaskStyle.css";
+import CommentTaskDialog from "@/components/task/CommentTaskDialog";
+import { TaskI } from "@/api/task";
+
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -25,41 +27,55 @@ const TableTask: React.FC<{ tasks: TaskI[] }> = ({ tasks }) => {
     {
       headerName: "Descripcion",
       field: "description",
-      flex: 2,
       cellClass: "flex justify-center items-center",
+      minWidth: 350,
+    },
+    {
+      headerName: "Comentarios",
+      field: "comments",
+      cellClass: "flex justify-center items-center",
+      cellRenderer: (params: any) => <CommentTaskDialog comments={params.data.comments} />,
+      width: 120,
+      sortable: false,
     },
     {
       headerName: "Proyecto",
+      field: "projectId",
       cellRenderer: (params: any) => <AvatarProject project={params.data.projectId} />,
-      width: 100,
+      width: 90,
       cellClass: "flex justify-center items-center",
     },
     {
       headerName: "Asignado a",
+      field: "assignedTo.name",
       cellRenderer: (params: any) => <AvatarUser  user={params.data.assignedTo} />,
-      width: 120,
+      width: 110,
       cellClass: "flex justify-center items-center",
     },
     {
       headerName: "Etapa",
       field: "stage",
       cellClass: "flex justify-center items-center",
+      width: 170,
     },
     {
       headerName: "Estado",
       field: "status",
-      cellRenderer: (params: any) => <StatusLabel type={params.value} />,
+      cellRenderer: (params: any) => <StatusTaskLabel type={params.value} idTask={params.data._id} />,
+      width: 170,
     },
     {
       headerName: "Prioridad",
       field: "priority",
-      cellRenderer: (params: any) => <PriorityLabel priority={params.value} />,
+      cellRenderer: (params: any) => <PriorityTaskLabel priority={params.value} idTask={params.data._id} />,
+      width: 170,
     },
     {
       headerName: "Vencimiento",
       field: "dueDate",
       cellClass: "flex justify-center items-center",
       valueFormatter: (p) => formatDate(p.value),
+      width: 170,
     },
   ]);
 
@@ -71,6 +87,7 @@ const TableTask: React.FC<{ tasks: TaskI[] }> = ({ tasks }) => {
           columnDefs={colDefs}
           domLayout="autoHeight"
           rowHeight={50}
+         
         />
       </div>
     </Box>

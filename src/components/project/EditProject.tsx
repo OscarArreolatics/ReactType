@@ -11,16 +11,16 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 import project from "@/api/project";
+import "dayjs/locale/es";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 import { useDispatch } from "react-redux";
 import { setProjects } from "@/redux/slices/projectSlice";
 
-// Configuración de `dayjs` para formatos localizados
-import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
-dayjs.locale();
+dayjs.locale("es");
 
 interface EditProjectProps {
   projectId: string;
@@ -89,7 +89,7 @@ const EditProject: React.FC<EditProjectProps> = ({
       color: projectData.color,
       startDate: projectData.startDate ? projectData.startDate.toDate() : null,
       endDate: projectData.endDate ? projectData.endDate.toDate() : null,
-      status: projectData.status
+      status: projectData.status,
     };
 
     project
@@ -158,13 +158,14 @@ const EditProject: React.FC<EditProjectProps> = ({
               <MenuItem value="media">Media</MenuItem>
               <MenuItem value="baja">Baja</MenuItem>
             </TextField>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
               <div className="mt-3">
                 <DatePicker
                   label="Fecha de Inicio"
                   value={projectData.startDate}
                   onChange={handleDateChange("startDate")}
                   className="w-full"
+                  format="DD-MM-YYYY"
                 />
               </div>
               <div className="mt-5">
@@ -173,6 +174,7 @@ const EditProject: React.FC<EditProjectProps> = ({
                   value={projectData.endDate}
                   onChange={handleDateChange("endDate")}
                   className="w-full"
+                  format="DD-MM-YYYY"
                 />
               </div>
             </LocalizationProvider>

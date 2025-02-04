@@ -47,6 +47,7 @@ const Login: React.FC = () => {
         dispatch(
           login({
             user: {
+              _id: result.user._id,
               email: result.user.email,
               name: result.user.name,
             },

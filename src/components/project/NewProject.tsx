@@ -10,14 +10,15 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 import project from "@/api/project";
+import "dayjs/locale/es";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
-
-// Configuración de `dayjs` para formatos localizados
 import localizedFormat from "dayjs/plugin/localizedFormat";
+
+
 dayjs.extend(localizedFormat);
-dayjs.locale();
+dayjs.locale("es");
 
 interface NewProjectProps {
   open: boolean;
@@ -106,13 +107,14 @@ const NewProject: React.FC<NewProjectProps> = ({ open, onClose, onSave }) => {
           <MenuItem value="media">Media</MenuItem>
           <MenuItem value="baja">Baja</MenuItem>
         </TextField>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
           <div className="mt-3">
             <DatePicker
               label="Fecha de Inicio"
               value={formData.startDate}
               onChange={handleDateChange("startDate")}
               className="w-full"
+              format="DD-MM-YYYY"
             />
           </div>
           <div className="mt-5">
@@ -121,6 +123,7 @@ const NewProject: React.FC<NewProjectProps> = ({ open, onClose, onSave }) => {
               value={formData.endDate}
               onChange={handleDateChange("endDate")}
               className="w-full"
+              format="DD-MM-YYYY"
             />
           </div>
         </LocalizationProvider>

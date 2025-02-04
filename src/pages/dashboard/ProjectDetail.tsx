@@ -1,14 +1,34 @@
 import Sidebar from "@/layouts/DashSlidebar";
 import Grid from "@mui/material/Grid2";
-import { Card, CardContent, Chip } from "@mui/material";
+import { Card, CardContent, Chip, Button } from "@mui/material";
+import PointOutlinedIcon from "@mui/icons-material/ControlPointOutlined";
 import { useEffect, useCallback, useState } from "react";
 import projectApi, { ProjectI } from "@/api/project";
+import taskApi, { TaskI } from "@/api/task";
 import { useParams } from "react-router-dom";
-import { formatDate } from "@/utils/utils"
+import { formatDate } from "@/utils/utils";
+import TableTasks from "@/components/task/TableTasks";
+import NewTask from "@/components/task/NewTask";
 
 const Projects: React.FC = () => {
+  const [openNewTaskDialog, setOpenNewTaskDialog] = useState(false);
   const [Project, setProject] = useState<ProjectI>();
+  const [Tasks, setTasks] = useState<TaskI[]>();
   const { id } = useParams<{ id: string }>();
+
+  const fetchTask = useCallback(async () => {
+    try {
+      if (id) {
+        const taskres = await taskApi.getTasksByProject(id);
+        if (taskres) {
+          setTasks(taskres);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching task:", error);
+    }
+  }, [id]);
+  
 
   const fetchProject = useCallback(async () => {
     try {
@@ -17,11 +37,13 @@ const Projects: React.FC = () => {
         if (res) {
           setProject(res);
         }
+
+        fetchTask()
       }
     } catch (error) {
       console.error("Error fetching project:", error);
     }
-  }, [id]);
+  }, [id, fetchTask]);
 
   useEffect(() => {
     fetchProject();
@@ -43,39 +65,73 @@ const Projects: React.FC = () => {
               ></div>
 
               <CardContent className="p-3">
-                <div className="mb-3">
-                  <h1 className="text-3xl font-medium capitalize">
-                    {Project?.name}
-                  </h1>
-                </div>
-                <div className="my-3">
-                  {Project?.tags.map((tag, tagIndex) => (
-                    <Chip
-                      key={tagIndex}
-                      label={tag}
-                      className="me-2 capitalize"
+                <Grid container>
+                  <Grid size={{ xs: 12, md: 6 }}>
+                    <div className="mb-3">
+                      <h1 className="text-3xl font-medium capitalize">
+                        {Project?.name}
+                      </h1>
+                    </div>
+                    <div className="my-3">
+                      {Project?.tags.map((tag, tagIndex) => (
+                        <Chip
+                          key={tagIndex}
+                          label={tag}
+                          className="me-2 capitalize"
+                          color="success"
+                          size="small"
+                        />
+                      ))}
+                    </div>
+                    <div className="capitalize">{Project?.description}</div>
+                    <div>
+                      Administrador del proyecto: {Project?.createdBy.name}
+                    </div>
+                    <div>
+                      Fecha de inicio:{" "}
+                      {Project?.startDate
+                        ? formatDate(Project.startDate)
+                        : "Sin fecha de inicio"}
+                    </div>
+                    <div>
+                      Fecha de cierre:{" "}
+                      {Project?.endDate
+                        ? formatDate(Project.endDate)
+                        : "Sin fecha de cierre"}
+                    </div>
+                  </Grid>
+                  <Grid size={{ xs: 12, md: 6 }}>
+                    <div className="flex justify-end">
+                    <Button
+                      variant="contained"
                       color="success"
-                      size="small"
-                    />
-                  ))}
-                </div>
-                <div className="capitalize">{Project?.description}</div>
-                <div>Administrador del proyecto:</div>
-                <div>
-                  Fecha de inicio:{" "}
-                  {Project?.startDate
-                    ? formatDate(Project.startDate)
-                    : "Sin fecha de inicio"}
-                </div>
-                <div>
-                  Fecha de cierre:{" "}
-                  {Project?.endDate
-                    ? formatDate(Project.endDate)
-                    : "Sin fecha de cierre"}
-                </div>
-                <Grid container></Grid>
+                      endIcon={<PointOutlinedIcon />}
+                      onClick={() => setOpenNewTaskDialog(true)}
+                    >
+                      Nueva Tarea
+                    </Button>
+                    </div>
+                  
+                  </Grid>
+                </Grid>
+
+                <Grid container className="mt-6">
+                  {!Tasks ? (
+                    "Sin tareas Asignadas"
+                  ) : (
+                    <TableTasks tasks={Tasks} />
+                  )}
+                </Grid>
               </CardContent>
             </Card>
+
+            {/* dialog proyecto nuevo  */}
+            <NewTask
+              projId={Project?._id}
+              open={openNewTaskDialog}
+              onSave={fetchTask}
+              onClose={() => setOpenNewTaskDialog(false)}
+            />
           </div>
         </Sidebar>
       </div>

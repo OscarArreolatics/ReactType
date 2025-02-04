@@ -8,15 +8,23 @@ export interface ProjectI {
   _id: string;
   name: string;
   description?: string;
-  createdBy: string;
-  collaborators: string[];
+  createdBy: {
+    _id: string;
+    name: string;
+  };
+  collaborators: collaborator[];
   status: "activo" | "pausado" | "completado";
-  tasks: string[];
+  incompleteTasks: number;
   startDate: Date;
   endDate?: Date;
   priority: "alta" | "media" | "baja";
   tags: string[];
   color: string;
+}
+
+interface collaborator {
+  _id: string;
+  name: string;
 }
 
 interface ParamsProject {

@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  Avatar,
   Menu,
   MenuItem,
   ListItemIcon,
@@ -12,16 +11,16 @@ import PersonIcon from "@mui/icons-material/PersonRounded";
 import { logout } from "@/redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { green } from "@mui/material/colors";
 import { RootState } from "@/redux/store";
 import auth from "@/api/auth";
+import AvatarUser from "@/components/AvatarUser";
 
 const AvatarMenu : React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const userName = useSelector((state: RootState) => state.auth.user);
+  const User = useSelector((state: RootState) => state.auth.user);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -38,18 +37,10 @@ const AvatarMenu : React.FC = () => {
         navigate("/");
       }
     });
-  };
+  };  
 
   const menuItems = [{ text: "Perfil", icon: <PersonIcon />, url: "/" }];
 
-  const getInitials = (fullName: string): string => {
-    return fullName
-      .split(' ') // Divide el nombre en palabras
-      .map((word) => word[0]?.toUpperCase()) // Toma la primera letra de cada palabra y la convierte a mayúscula
-      .join(''); // Une las letras en un solo string
-  };
-
-  const Initial = getInitials(userName.name)
   return (
     <>
       <IconButton
@@ -60,7 +51,7 @@ const AvatarMenu : React.FC = () => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
       >
-        <Avatar sx={{ bgcolor: green[500] }}>{Initial}</Avatar>
+        <AvatarUser user={User}/>
       </IconButton>
       <Menu
         anchorEl={anchorEl}
