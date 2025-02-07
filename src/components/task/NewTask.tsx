@@ -144,6 +144,7 @@ const NewTask: React.FC<NewTaskProps> = ({ projId, open, onClose, onSave }) => {
           margin="normal"
           label="Descripción"
           name="description"
+          minRows={3}
           value={formData.description}
           onChange={handleInputChange}
           multiline

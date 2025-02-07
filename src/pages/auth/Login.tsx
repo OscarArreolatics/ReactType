@@ -54,7 +54,7 @@ const Login: React.FC = () => {
             isAuthenticated: true,
           })
         );
-      
+
         toast.success("Bienvenido !!!", {
           position: "top-right",
           theme: "colored",
@@ -69,7 +69,10 @@ const Login: React.FC = () => {
   return (
     <>
       <Container className="flex justify-center items-center">
-        <Card className="my-3 w-full md:w-2/4 h-1/2" sx={{ borderRadius: "1rem" }}>
+        <Card
+          className="my-3 w-full md:w-2/4 h-1/2"
+          sx={{ borderRadius: "1rem" }}
+        >
           <CardContent>
             <Grid container alignItems="center" justifyContent="center">
               <img src={logo} alt="" width={120} />
@@ -122,6 +125,7 @@ const Login: React.FC = () => {
             <Grid container alignItems="center" justifyContent="center">
               <div className="mt-6">
                 <LoadingButton
+                  id="logButton"
                   loading={loading}
                   variant="outlined"
                   loadingIndicator="Entrar…"

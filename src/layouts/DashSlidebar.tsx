@@ -11,6 +11,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Tooltip,
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -112,7 +113,7 @@ type PadreProps = {
 
 const Padre: React.FC<PadreProps> = ({ children }) => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -169,14 +170,16 @@ const Padre: React.FC<PadreProps> = ({ children }) => {
         <Divider />
         <List>
           {navigate.map((item, index) => (
-            <ListItem key={index} disablePadding sx={{ display: "block" }}>
-              <Link to={item.to}>
-                <ListItemButton>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.title} />
-                </ListItemButton>
-              </Link>
-            </ListItem>
+            <Tooltip key={index} title={item.title} placement="right" arrow>
+              <ListItem disablePadding sx={{ display: "block" }}>
+                <Link to={item.to}>
+                  <ListItemButton>
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.title} />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            </Tooltip>
           ))}
         </List>
         <Divider />
