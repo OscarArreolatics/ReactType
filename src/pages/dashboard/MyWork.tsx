@@ -76,7 +76,7 @@ const MyWork: React.FC = () => {
             sx={{ borderRadius: "0.5rem" }}
           >
             <h1 className="text-3xl font-medium">Mi Trabajo</h1>
-            <CardContent>
+            <CardContent className="my-4" sx={{padding: 0}}>
               <Accordion className="border border-amber-900">
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}

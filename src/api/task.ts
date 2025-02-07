@@ -100,10 +100,13 @@ const createTask = async (params: ParamsTask): Promise<TaskI | null> => {
   }
 };
 
-const updateTask = async (id: string, params: ParamsTask): Promise<TaskI | null> => {
+const updateTask = async (
+  id: string,
+  params: ParamsTask
+): Promise<TaskI | null> => {
   try {
     const response: AxiosResponse<TaskI | null> = await axios.put(
-      recurso+id,
+      recurso + id,
       params,
       {
         withCredentials: true,

@@ -29,12 +29,13 @@ const TableTask: React.FC<{ tasks: TaskI[] }> = ({ tasks }) => {
       field: "description",
       cellClass: "flex justify-center items-center",
       minWidth: 350,
+      flex: 1
     },
     {
       headerName: "Comentarios",
       field: "comments",
       cellClass: "flex justify-center items-center",
-      cellRenderer: (params: any) => <CommentTaskDialog comments={params.data.comments} />,
+      cellRenderer: (params: any) => <CommentTaskDialog taskId={params.data._id} comments={params.data.comments} />,
       width: 120,
       sortable: false,
     },
@@ -49,7 +50,7 @@ const TableTask: React.FC<{ tasks: TaskI[] }> = ({ tasks }) => {
       headerName: "Asignado a",
       field: "assignedTo.name",
       cellRenderer: (params: any) => <AvatarUser  user={params.data.assignedTo} />,
-      width: 110,
+      width: 130,
       cellClass: "flex justify-center items-center",
     },
     {
