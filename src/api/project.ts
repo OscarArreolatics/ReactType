@@ -8,10 +8,7 @@ export interface ProjectI {
   _id: string;
   name: string;
   description?: string;
-  createdBy: {
-    _id: string;
-    name: string;
-  };
+  createdBy: collaborator;
   collaborators: collaborator[];
   status: "activo" | "pausado" | "completado";
   incompleteTasks: number;

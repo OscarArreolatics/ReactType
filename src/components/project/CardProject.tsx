@@ -153,7 +153,7 @@ const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
                   Tareas Abiertas <span className="font-bold">({project.incompleteTasks})</span>
                 </div>
                 <div className="text-sm capitalize">
-                  Administrador: Oscar Arreola
+                  Administrador: {project.createdBy.name}
                 </div>
               </div>
             </Grid>
