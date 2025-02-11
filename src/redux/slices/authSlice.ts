@@ -4,6 +4,7 @@ interface User {
   _id: string;
   email: string;
   name: string;
+  role: string;
 }
 
 interface LoginPayload {
@@ -31,13 +32,11 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action: PayloadAction<LoginPayload>) => {
       state.isAuthenticated = true;
-      // Guardar en localStorage
       state.user = action.payload.user;
       localStorage.setItem('user', JSON.stringify(action.payload));
     },
     logout: (state) => {
       state.isAuthenticated = false;
-      // Eliminar de localStorage
       localStorage.removeItem('user');
     },
     setAuth: (state, action: PayloadAction<boolean>) => {

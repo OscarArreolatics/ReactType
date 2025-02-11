@@ -13,11 +13,11 @@ import task, { TaskI } from "@/api/task";
 import TableTasks from "@/components/task/TableTasks";
 
 const MyWork: React.FC = () => {
-  const [TasksBefore, setTasksBefore] = useState<TaskI[]>();
-  const [TasksToday, setTasksToday] = useState<TaskI[]>();
-  const [TasksNextWeek, setTasksNextWeek] = useState<TaskI[]>();
-  const [TasksAfter, setTasksAfter] = useState<TaskI[]>();
-  const [TasksNoDate, setTasksNoDate] = useState<TaskI[]>();
+  const [TasksBefore, setTasksBefore] = useState<TaskI[]>([]);
+  const [TasksToday, setTasksToday] = useState<TaskI[]>([]);
+  const [TasksNextWeek, setTasksNextWeek] = useState<TaskI[]>([]);
+  const [TasksAfter, setTasksAfter] = useState<TaskI[]>([]);
+  const [TasksNoDate, setTasksNoDate] = useState<TaskI[]>([]);
 
   const fetchProject = useCallback(async () => {
     const today = new Date();
@@ -76,7 +76,7 @@ const MyWork: React.FC = () => {
             sx={{ borderRadius: "0.5rem" }}
           >
             <h1 className="text-3xl font-medium">Mi Trabajo</h1>
-            <CardContent className="my-4" sx={{padding: 0}}>
+            <CardContent className="my-4" sx={{ padding: 0 }}>
               <Accordion className="border border-amber-900">
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -87,16 +87,12 @@ const MyWork: React.FC = () => {
                     <span className="text-amber-900 font-bold text-lg">
                       Fecha Pasadas
                     </span>
-                    <span className="font-bold"> ({TasksBefore?.length})</span>{" "}
-                    Elementos
+                    <span className="font-bold"> ({TasksBefore?.length})</span>
+                    &nbsp; Elementos
                   </div>
                 </AccordionSummary>
                 <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
-                  {!TasksBefore ? (
-                    "Sin tareas Asignadas"
-                  ) : (
                     <TableTasks tasks={TasksBefore} />
-                  )}
                 </AccordionDetails>
               </Accordion>
 
@@ -107,20 +103,15 @@ const MyWork: React.FC = () => {
                   id="panel2-header"
                 >
                   <div>
-                    <span className="text-cyan-600 font-bold text-lg">Hoy</span>
-                    <span className="font-bold">
-                      {" "}
-                      ({TasksToday?.length})
-                    </span>{" "}
-                    Elementos
+                    <span className="text-cyan-600 font-bold text-lg">
+                      Hoy{" "}
+                    </span>
+                    <span className="font-bold">({TasksToday?.length})</span>
+                    &nbsp; Elementos
                   </div>
                 </AccordionSummary>
                 <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
-                  {!TasksToday ? (
-                    "Sin tareas Asignadas"
-                  ) : (
                     <TableTasks tasks={TasksToday} />
-                  )}
                 </AccordionDetails>
               </Accordion>
 
@@ -132,21 +123,14 @@ const MyWork: React.FC = () => {
                 >
                   <div>
                     <span className="text-emerald-400 font-bold text-lg">
-                      Proxima Semana
+                      Proxima Semana&nbsp;
                     </span>
-                    <span className="font-bold">
-                      {" "}
-                      ({TasksNextWeek?.length})
-                    </span>{" "}
-                    Elementos
+                    <span className="font-bold">({TasksNextWeek?.length})</span>
+                    &nbsp; Elementos
                   </div>
                 </AccordionSummary>
                 <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
-                  {!TasksNextWeek ? (
-                    "Sin tareas Asignadas"
-                  ) : (
                     <TableTasks tasks={TasksNextWeek} />
-                  )}
                 </AccordionDetails>
               </Accordion>
 
@@ -160,16 +144,12 @@ const MyWork: React.FC = () => {
                     <span className="text-amber-600 font-bold text-lg">
                       Mas adelante
                     </span>
-                    <span className="font-bold"> ({TasksAfter?.length})</span>{" "}
-                    Elementos
+                    <span className="font-bold"> ({TasksAfter?.length})</span>
+                    &nbsp; Elementos
                   </div>
                 </AccordionSummary>
                 <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
-                  {!TasksAfter ? (
-                    "Sin tareas Asignadas"
-                  ) : (
                     <TableTasks tasks={TasksAfter} />
-                  )}
                 </AccordionDetails>
               </Accordion>
 
@@ -183,16 +163,12 @@ const MyWork: React.FC = () => {
                     <span className="text-blue-800 font-bold text-lg">
                       Fin fecha
                     </span>
-                    <span className="font-bold"> ({TasksNoDate?.length})</span>{" "}
-                    Elementos
+                    <span className="font-bold"> ({TasksNoDate?.length})</span>
+                    &nbsp; Elementos
                   </div>
                 </AccordionSummary>
                 <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
-                  {!TasksNoDate ? (
-                    "Sin tareas Asignadas"
-                  ) : (
                     <TableTasks tasks={TasksNoDate} />
-                  )}
                 </AccordionDetails>
               </Accordion>
             </CardContent>

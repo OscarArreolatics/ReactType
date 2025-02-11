@@ -50,6 +50,7 @@ const Login: React.FC = () => {
               _id: result.user._id,
               email: result.user.email,
               name: result.user.name,
+              role: result.user.role
             },
             isAuthenticated: true,
           })

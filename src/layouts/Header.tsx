@@ -31,9 +31,7 @@ const Header = () => {
 
   return (
     <>
-      {isAuthenticated ? (
-        ""
-      ) : (
+      {!isAuthenticated &&
         <Paper className="uppercase font-bold text-black text-md p-3">
           <Grid container>
             <Grid
@@ -68,7 +66,7 @@ const Header = () => {
             ></Grid>
           </Grid>
         </Paper>
-      )}
+      }
     </>
   );
 };

@@ -6,12 +6,12 @@ const Home: React.FC = () => {
   return (
     <>
       <Grid container className="w-full">
-        <Grid size={6}>
-          <div className="bg-blue-500 text-white h-full div-inclinado flex justify-center items-center">
+        <Grid  size={{ xs: 12, md: 6 }}>
+          <div className="bg-blue-500 text-white h-full div-inclinado flex justify-center items-center text-center">
             <h1 className="text-3xl font-bold uppercase">Bienvenido a task control</h1>
           </div>
         </Grid>
-        <Grid size={6} className="flex justify-center items-center">
+        <Grid  size={{ xs: 12, md: 6 }} className="flex justify-center items-center">
           <Login/>
         </Grid>
       </Grid>

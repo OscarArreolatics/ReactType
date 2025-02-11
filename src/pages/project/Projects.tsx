@@ -9,6 +9,7 @@ import { RootState } from "@/redux/store";
 import projectApi from "@/api/project";
 import CardProject from "@/components/project/CardProject";
 import NewProject from "@/components/project/NewProject";
+import { useAuth } from "@/utils/RoleAuth";
 
 const Projects: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Projects: React.FC = () => {
       const res = await projectApi.getProjects();
       if (res) {
         dispatch(setProjects(res));
+        console.log(res);
       }
     } catch (error) {
       console.error("Error fetching project:", error);
@@ -37,21 +39,24 @@ const Projects: React.FC = () => {
           <div>
             <Card
               variant="outlined"
-              className="my-3 w-full p-3"
+              className="my-3 w-full p-1 md:p-3"
               sx={{ borderRadius: "0.5rem" }}
             >
               <div className="flex justify-between">
                 <h1 className="text-3xl font-medium">Mis Proyectos</h1>
-                <div>
-                  <Button
-                    variant="contained"
-                    color="success"
-                    endIcon={<PointOutlinedIcon />}
-                    onClick={() => setOpenNewProjectDialog(true)}
-                  >
-                    Nuevo Proyecto
-                  </Button>
-                </div>
+
+                {useAuth(["admin", "editor"]) && (
+                  <div>
+                    <Button
+                      variant="contained"
+                      color="success"
+                      endIcon={<PointOutlinedIcon />}
+                      onClick={() => setOpenNewProjectDialog(true)}
+                    >
+                      Nuevo Proyecto
+                    </Button>
+                  </div>
+                )}
               </div>
 
               <CardContent>
@@ -66,11 +71,11 @@ const Projects: React.FC = () => {
                 >
                   {projects.map((project) => (
                     <Grid
-                    size={{ xs: 12, md: 6, lg: 4, xl: 2.5 }}
-                    key={project._id}
-                  >
-                    <CardProject project={project} />
-                  </Grid>
+                      size={{ xs: 12, md: 6, lg: 4, xl: 3 }}
+                      key={project._id}
+                    >
+                      <CardProject project={project} />
+                    </Grid>
                   ))}
                 </Grid>
               </CardContent>

@@ -28,7 +28,6 @@ const Projects: React.FC = () => {
       console.error("Error fetching task:", error);
     }
   }, [id]);
-  
 
   const fetchProject = useCallback(async () => {
     try {
@@ -38,7 +37,7 @@ const Projects: React.FC = () => {
           setProject(res);
         }
 
-        fetchTask()
+        fetchTask();
       }
     } catch (error) {
       console.error("Error fetching project:", error);
@@ -68,7 +67,7 @@ const Projects: React.FC = () => {
                 <Grid container>
                   <Grid size={{ xs: 12, md: 6 }}>
                     <div className="mb-3">
-                      <h1 className="text-3xl font-medium capitalize">
+                      <h1 className="text-3xl capitalize">
                         {Project?.name}
                       </h1>
                     </div>
@@ -76,14 +75,15 @@ const Projects: React.FC = () => {
                       {Project?.tags.map((tag, tagIndex) => (
                         <Chip
                           key={tagIndex}
-                          label={tag}
+                          label={tag.title}
                           className="me-2 capitalize"
-                          color="success"
+                          sx={{ backgroundColor: tag.color, color: "white" }}
                           size="small"
                         />
                       ))}
                     </div>
-                    <div className="capitalize">{Project?.description}</div>
+                    <div className="font-bold">Descripción:</div>
+                    <div className="mb-5 text-justify">{Project?.description}</div>
                     <div>
                       Administrador del proyecto: {Project?.createdBy.name}
                     </div>
@@ -102,16 +102,15 @@ const Projects: React.FC = () => {
                   </Grid>
                   <Grid size={{ xs: 12, md: 6 }}>
                     <div className="flex justify-end">
-                    <Button
-                      variant="contained"
-                      color="success"
-                      endIcon={<PointOutlinedIcon />}
-                      onClick={() => setOpenNewTaskDialog(true)}
-                    >
-                      Nueva Tarea
-                    </Button>
+                      <Button
+                        variant="contained"
+                        color="success"
+                        endIcon={<PointOutlinedIcon />}
+                        onClick={() => setOpenNewTaskDialog(true)}
+                      >
+                        Nueva Tarea
+                      </Button>
                     </div>
-                  
                   </Grid>
                 </Grid>
 

@@ -6,9 +6,10 @@ import auth from "@/api/auth";
 import { setAuth } from "@/redux/slices/authSlice";
 import Home from "@/pages/Home";
 import Login from "@/pages/auth/Login";
-import MyWork from "@/pages/dashboard/MyWork";
-import Projects from "@/pages/dashboard/Projects";
-import ProjectDetails from "@/pages/dashboard/ProjectDetail"
+import MyWork from "@/pages/task/MyWork";
+import Projects from "@/pages/project/Projects";
+import ProjectDetails from "@/pages/project/ProjectDetail"
+import Tags from "@/pages/tag/Tags";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const AppRouter = () => {
       <Route
         path="/mywork"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute roles={["admin","editor","user"]}>
             <MyWork />
           </ProtectedRoute>
         }
@@ -46,7 +47,7 @@ const AppRouter = () => {
       <Route
         path="/projects"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute roles={["admin","editor","user"]}>
             <Projects />
           </ProtectedRoute>
         }
@@ -54,8 +55,16 @@ const AppRouter = () => {
       <Route
         path="/project/:id"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute roles={["admin","editor","user"]}>
             <ProjectDetails />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tags"
+        element={
+          <ProtectedRoute roles={["admin","editor"]}>
+            <Tags />
           </ProtectedRoute>
         }
       />

@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar } from "@mui/material";
+import { getColorFromText } from "@/utils/utils"
 
 interface params {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -8,14 +9,7 @@ interface params {
 
 const AvatarUser: React.FC<params> = (props) => {
   
-  const getColorFromText = (text: string): string => {
-    let hash = 0;
-    for (let i = 0; i < text.length; i++) {
-      hash = text.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    const hex = (hash & 0xffffff).toString(16).padStart(6, "0");
-    return `#${hex}`;
-  };
+  
 
   return (
     <>

@@ -7,7 +7,7 @@ const recurso: string = conexion.url + "project/";
 export interface ProjectI {
   _id: string;
   name: string;
-  description?: string;
+  description: string;
   createdBy: collaborator;
   collaborators: collaborator[];
   status: "activo" | "pausado" | "completado";
@@ -15,13 +15,19 @@ export interface ProjectI {
   startDate: Date;
   endDate?: Date;
   priority: "alta" | "media" | "baja";
-  tags: string[];
+  tags: tag[];
   color: string;
 }
 
 interface collaborator {
   _id: string;
   name: string;
+}
+
+interface tag {
+  _id: string;
+  title: string;
+  color: string;
 }
 
 interface ParamsProject {

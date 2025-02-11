@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
 import {
   Box,
@@ -21,7 +21,10 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import AvatarMenu from "@/components/AvatarMenu";
 import BackupTableOutlinedIcon from "@mui/icons-material/BackupTableOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+import StyleIcon from "@mui/icons-material/Style";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const drawerWidth = 240;
 
@@ -113,7 +116,8 @@ type PadreProps = {
 
 const Padre: React.FC<PadreProps> = ({ children }) => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const userRole = useSelector((state: RootState) => state.auth.user.role);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -126,7 +130,34 @@ const Padre: React.FC<PadreProps> = ({ children }) => {
   const navigate = [
     { title: "Mi trabajo", icon: <AssignmentOutlinedIcon />, to: "/mywork" },
     { title: "Proyectos", icon: <BackupTableOutlinedIcon />, to: "/projects" },
+    { title: "Etiquetas", icon: <StyleIcon />, to: "/tags", auth: ["admin"] },
   ];
+
+  interface item {
+    title: string;
+    to: string;
+    icon: React.ReactNode;
+    auth?: string[];
+  }
+
+  const itemList = (item: item) => {
+    if (item.auth && !item.auth.includes(userRole)) {
+      return <></>;
+    } else {
+      return (
+        <Tooltip title={item.title} placement="right" arrow>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <Link to={item.to}>
+              <ListItemButton>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+        </Tooltip>
+      );
+    }
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -170,16 +201,7 @@ const Padre: React.FC<PadreProps> = ({ children }) => {
         <Divider />
         <List>
           {navigate.map((item, index) => (
-            <Tooltip key={index} title={item.title} placement="right" arrow>
-              <ListItem disablePadding sx={{ display: "block" }}>
-                <Link to={item.to}>
-                  <ListItemButton>
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.title} />
-                  </ListItemButton>
-                </Link>
-              </ListItem>
-            </Tooltip>
+            <div key={index}>{itemList(item)}</div>
           ))}
         </List>
         <Divider />

@@ -16,6 +16,10 @@ import { ProjectI } from "@/api/project";
 import EditProject from "./EditProject";
 import DeleteProject from "./DeleteProject";
 import StatusLabel from "../StatusLabel";
+import AvatarUser from "../AvatarUser";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
+import { useAuth } from "@/utils/RoleAuth";
 
 const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
   const colorPriority = (priority: string) => {
@@ -38,6 +42,7 @@ const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
   };
 
   //menu
+  const User = useSelector((state: RootState) => state.auth.user);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -60,69 +65,76 @@ const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
 
   return (
     <>
-      <Card className="h-full relative pb-8" variant="outlined">
-        <div className="absolute top-0 right-0 z-50">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-          >
-            <MoreVertIcon />
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            id="account-menu"
-            open={open}
-            onClose={handleClose}
-            onClick={handleClose}
-            slotProps={{
-              paper: {
-                elevation: 0,
-                sx: {
-                  overflow: "visible",
-                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                  mt: 1.5,
-                  "& .MuiAvatar-root": {
-                    width: 32,
-                    height: 32,
-                    ml: -0.5,
-                    mr: 1,
-                  },
-                  "&::before": {
-                    content: '""',
-                    display: "block",
-                    position: "absolute",
-                    top: 0,
-                    right: 14,
-                    width: 10,
-                    height: 10,
-                    bgcolor: "background.paper",
-                    transform: "translateY(-50%) rotate(45deg)",
-                    zIndex: 0,
+      <Card className="h-full relative pb-14 md:pb-6" variant="outlined">
+        <>
+          <div className="absolute top-0 right-0 z-50">
+            {User._id === project.createdBy._id && (
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+              >
+                <MoreVertIcon />
+              </IconButton>
+            )}
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              slotProps={{
+                paper: {
+                  elevation: 0,
+                  sx: {
+                    overflow: "visible",
+                    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                    mt: 1.5,
+                    "& .MuiAvatar-root": {
+                      width: 32,
+                      height: 32,
+                      ml: -0.5,
+                      mr: 1,
+                    },
+                    "&::before": {
+                      content: '""',
+                      display: "block",
+                      position: "absolute",
+                      top: 0,
+                      right: 14,
+                      width: 10,
+                      height: 10,
+                      bgcolor: "background.paper",
+                      transform: "translateY(-50%) rotate(45deg)",
+                      zIndex: 0,
+                    },
                   },
                 },
-              },
-            }}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-          >
-            <MenuItem onClick={() => setOpenDialog(true)}>
-              <ListItemIcon>
-                <EditIcon />
-              </ListItemIcon>
-              Editar
-            </MenuItem>
-            <MenuItem onClick={() => setOpenDeleteDialog(true)}>
-              <ListItemIcon>
-                <DeleteIcon className="text-red-500" />
-              </ListItemIcon>
-              <span className="text-red-500">Eliminar</span>
-            </MenuItem>
-          </Menu>
-        </div>
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
+              <MenuItem onClick={() => setOpenDialog(true)}>
+                <ListItemIcon>
+                  <EditIcon />
+                </ListItemIcon>
+                Editar
+              </MenuItem>
+              {useAuth(["admin"]) && (
+                <MenuItem onClick={() => setOpenDeleteDialog(true)}>
+                  <ListItemIcon>
+                    <DeleteIcon className="text-red-500" />
+                  </ListItemIcon>
+                  <span className="text-red-500">Eliminar</span>
+                </MenuItem>
+              )}
+            </Menu>
+          </div>
+        </>
+
         <Link to={"/project/" + project._id}>
           <Grid container sx={{ height: "100%" }}>
             <Grid
@@ -130,30 +142,44 @@ const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
               className="py-3"
               sx={{ backgroundColor: project.color }}
             ></Grid>
-            <Grid size={10} className="p-3 capitalize">
+            <Grid size={10} className="p-3 ">
               <div>
                 <div className="font-semibold text-lg capitalize">
                   {project.name}
                 </div>
-                <div className="text-sm mb-3 capitalize">
-                  {project.description}
+                <div
+                  className="text-sm mb-3  flex items-center"
+                  style={{ minHeight: "50px" }}
+                >
+                  {project.description?.length >= 75
+                    ? project.description?.substring(0, 75) + "..."
+                    : project.description}
                 </div>
-                <div>
+                <div style={{ minHeight: "25px" }}>
                   {project.tags.map((tag, tagIndex) => (
                     <Chip
                       key={tagIndex}
-                      label={tag}
+                      label={tag.title}
                       className="me-1 capitalize"
-                      color="success"
+                      sx={{ backgroundColor: tag.color, color: "white" }}
                       size="small"
                     />
                   ))}
                 </div>
+
                 <div className="my-3">
-                  Tareas Abiertas <span className="font-bold">({project.incompleteTasks})</span>
+                  Tareas Abiertas{" "}
+                  <span className="font-bold">({project.incompleteTasks})</span>
                 </div>
                 <div className="text-sm capitalize">
                   Administrador: {project.createdBy.name}
+                </div>
+                <div className="flex mt-3">
+                  {project.collaborators.map((collab, index) => (
+                    <div key={collab._id + index} className={"mr-1"}>
+                      <AvatarUser user={collab} />
+                    </div>
+                  ))}
                 </div>
               </div>
             </Grid>

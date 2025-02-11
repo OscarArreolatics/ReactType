@@ -22,7 +22,7 @@ const PriorityLabel: React.FC<labelprops> = (props) => {
     <>
       <div className={BgColor + " w-full h-full flex justify-center items-center"} >
         <div className="text-white text-sm py-1 capitalize flex" style={{alignItems: "center", justifyContent: "center"}} >
-           {props.type? <span>Prioridad: &nbsp;</span> : "" } {props.priority}
+           {props.type&& <span>Prioridad: &nbsp;</span> } {props.priority}
         </div>
       </div>
     </>
