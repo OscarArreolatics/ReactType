@@ -21,7 +21,6 @@ const Projects: React.FC = () => {
       const res = await projectApi.getProjects();
       if (res) {
         dispatch(setProjects(res));
-        console.log(res);
       }
     } catch (error) {
       console.error("Error fetching project:", error);

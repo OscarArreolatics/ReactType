@@ -15,13 +15,8 @@ import {
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Menu, ChevronLeft, ChevronRight, BackupTableOutlined, AssignmentOutlined, Style, Group } from "@mui/icons-material";
 import AvatarMenu from "@/components/AvatarMenu";
-import BackupTableOutlinedIcon from "@mui/icons-material/BackupTableOutlined";
-import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
-import StyleIcon from "@mui/icons-material/Style";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -128,9 +123,10 @@ const Padre: React.FC<PadreProps> = ({ children }) => {
   };
 
   const navigate = [
-    { title: "Mi trabajo", icon: <AssignmentOutlinedIcon />, to: "/mywork" },
-    { title: "Proyectos", icon: <BackupTableOutlinedIcon />, to: "/projects" },
-    { title: "Etiquetas", icon: <StyleIcon />, to: "/tags", auth: ["admin"] },
+    { title: "Mi trabajo", icon: <AssignmentOutlined />, to: "/mywork" },
+    { title: "Proyectos", icon: <BackupTableOutlined />, to: "/projects" },
+    { title: "Etiquetas", icon: <Style />, to: "/tags", auth: ["admin"] },
+    { title: "Usuarios", icon: <Group />, to: "/tags", auth: ["admin"] },
   ];
 
   interface item {
@@ -176,7 +172,7 @@ const Padre: React.FC<PadreProps> = ({ children }) => {
               open && { display: "none" },
             ]}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <div className="w-full flex">
             <div className="grow uppercase font-bold flex justify-center items-center">
@@ -192,9 +188,9 @@ const Padre: React.FC<PadreProps> = ({ children }) => {
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
+              <ChevronRight />
             ) : (
-              <ChevronLeftIcon />
+              <ChevronLeft />
             )}
           </IconButton>
         </DrawerHeader>

@@ -91,8 +91,6 @@ const NewProject: React.FC<NewProjectProps> = ({ open, onClose, onSave }) => {
       endDate: formData.endDate ? formData.endDate.toDate() : null,
     };
 
-    console.log(projectData);
-
     project
       .createProject(projectData)
       .then((result) => {

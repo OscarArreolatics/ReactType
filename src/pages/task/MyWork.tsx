@@ -161,7 +161,7 @@ const MyWork: React.FC = () => {
                 >
                   <div>
                     <span className="text-blue-800 font-bold text-lg">
-                      Fin fecha
+                      Sin fecha
                     </span>
                     <span className="font-bold"> ({TasksNoDate?.length})</span>
                     &nbsp; Elementos
