@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { RootState } from "@/redux/store";
 import auth from "@/api/auth";
-import AvatarUser from "@/components/AvatarUser";
+import AvatarUser from "@/components/avatar/AvatarUser";
 
 const AvatarMenu : React.FC = () => {
   const dispatch = useDispatch();

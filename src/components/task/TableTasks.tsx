@@ -8,8 +8,8 @@ import { Box } from "@mui/material";
 import { formatDate } from "@/utils/utils";
 import StatusTaskLabel from "@/components/task/StatusTaskLabel";
 import PriorityTaskLabel from "@/components/task/PriorityTaskLabel";
-import AvatarProject from "../AvatarProject";
-import AvatarUser from "../AvatarUser";
+import AvatarProject from "../avatar/AvatarProject";
+import AvatarUser from "../avatar/AvatarUser";
 import CommentTaskDialog from "@/components/task/CommentTaskDialog";
 import { TaskI } from "@/types/task";
 

@@ -12,7 +12,7 @@ import {
 import ChatIcon from "@mui/icons-material/Chat";
 import ChatOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import Grid from "@mui/material/Grid2";
-import AvatarUser from "@/components/AvatarUser";
+import AvatarUser from "@/components/avatar/AvatarUser";
 import { formatDate, getHours } from "@/utils/utils";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";

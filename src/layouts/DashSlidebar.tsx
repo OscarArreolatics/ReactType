@@ -16,7 +16,7 @@ import {
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { Menu, ChevronLeft, ChevronRight, BackupTableOutlined, AssignmentOutlined, Style, Group } from "@mui/icons-material";
-import AvatarMenu from "@/components/AvatarMenu";
+import AvatarMenu from "@/components/avatar/AvatarMenu";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";

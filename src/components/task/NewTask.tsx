@@ -18,8 +18,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import AvatarProject from "@/components/AvatarProject";
-import AvatarUser from "@/components/AvatarUser";
+import AvatarProject from "@/components/avatar/AvatarProject";
+import AvatarUser from "@/components/avatar/AvatarUser";
 
 
 // Configuración de `dayjs` para formatos localizados
