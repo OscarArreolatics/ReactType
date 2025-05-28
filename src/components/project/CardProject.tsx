@@ -12,7 +12,7 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { ProjectI } from "@/api/project";
+import { ProjectI } from "@/types/project";
 import EditProject from "./EditProject";
 import DeleteProject from "./DeleteProject";
 import StatusLabel from "../StatusLabel";

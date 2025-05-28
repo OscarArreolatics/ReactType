@@ -6,7 +6,8 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import tagApi, { TagI } from "@/api/tag";
+import tagApi from "@/api/tag";
+import { TagI } from "@/types/tag";
 import { toast } from "react-toastify";
 import { setTags } from "@/redux/slices/tagSlice";
 import { useDispatch } from "react-redux";

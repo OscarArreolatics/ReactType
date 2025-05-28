@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TagI } from "@/api/tag";
+import { TagI } from "@/types/tag";
 import { Chip, MenuItem, Menu, ListItemIcon } from "@mui/material";
 import {
   MoreVert,

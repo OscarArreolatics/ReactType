@@ -1,13 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import conexion from "./conexion";
 import { catchError } from "@/utils/utils";
+import { UserCoI } from "@/types/user";
 
 const recurso: string = conexion.url + "user/";
-
-export interface UserCoI {
-    _id: string;
-    name: string;
-}
 
 const getUser = async (): Promise<UserCoI[] | null> => {
     try {

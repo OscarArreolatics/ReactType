@@ -8,7 +8,8 @@ import {
   TextField,
 } from "@mui/material";
 import { toast } from "react-toastify";
-import tagApi, { TagI } from "@/api/tag";
+import tagApi from "@/api/tag";
+import { TagI } from "@/types/tag";
 import { setTags } from "@/redux/slices/tagSlice";
 import { useDispatch } from "react-redux";
 

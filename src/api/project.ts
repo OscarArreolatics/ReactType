@@ -1,51 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import conexion from "./conexion";
 import { catchError } from "@/utils/utils";
+import { ProjectI, ParamsProject } from "@/types/project";
+import { CodeCath } from "@/types/codeCath";
 
 const recurso: string = conexion.url + "project/";
 
-export interface ProjectI {
-  _id: string;
-  name: string;
-  description: string;
-  createdBy: collaborator;
-  collaborators: collaborator[];
-  status: "activo" | "pausado" | "completado";
-  incompleteTasks: number;
-  startDate: Date;
-  endDate?: Date;
-  priority: "alta" | "media" | "baja";
-  tags: tag[];
-  color: string;
-}
 
-interface collaborator {
-  _id: string;
-  name: string;
-}
-
-interface tag {
-  _id: string;
-  title: string;
-  color: string;
-}
-
-interface ParamsProject {
-  id?: string;
-  name: string;
-  description: string;
-  priority: string;
-  color: string;
-  startDate: Date | null;
-  endDate?: Date | null;
-  status?: string;
-}
-
-
-export interface CodeCath {
-  code: string,
-  msg: string
-}
 
 const getProjects = async (): Promise<ProjectI[] | null> => {
   try {

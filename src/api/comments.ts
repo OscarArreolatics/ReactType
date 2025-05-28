@@ -1,23 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import conexion from "./conexion";
 import { catchError } from "@/utils/utils";
+import { ParamsComment, CommentI } from "@/types/comments";
 
 const recurso: string = conexion.url + "comment/";
-
-export interface CommentI {
-  _id: string;
-  userId: {
-    _id: string;
-    name: string;
-  };
-  comment: string;
-  timestamp: string;
-}
-
-interface ParamsComment {
-  comment: string;
-  commentId?: string;
-}
 
 const addComment = async (
   id: string,

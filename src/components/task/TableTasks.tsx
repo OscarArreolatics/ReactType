@@ -11,7 +11,7 @@ import PriorityTaskLabel from "@/components/task/PriorityTaskLabel";
 import AvatarProject from "../AvatarProject";
 import AvatarUser from "../AvatarUser";
 import CommentTaskDialog from "@/components/task/CommentTaskDialog";
-import { TaskI } from "@/api/task";
+import { TaskI } from "@/types/task";
 
 
 ModuleRegistry.registerModules([AllCommunityModule]);

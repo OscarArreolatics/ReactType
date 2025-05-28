@@ -1,41 +1,19 @@
 import axios, { AxiosResponse } from "axios";
 import conexion from "./conexion";
 import { catchError } from "@/utils/utils";
+import { ValidarUsuarioParams, UsuarioResponse, checkAuthRes } from "@/types/auth";
+import { CodeCath } from "@/types/codeCath";
 
 const recurso: string = conexion.url + "auth/";
 axios.defaults.withCredentials = true;
 
-interface ValidarUsuarioParams {
-  email: string;
-  password: string;
-}
 
-interface userInfo {
-  _id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-
-interface checkAuthRes {
-  authenticated: boolean;
-}
-
-export interface UsuarioResponse {
-  token: string;
-  user: userInfo;
-}
-
-export interface LoginCath {
-    code: string,
-    msg: string
-}
 
 const ValidarUsuario = async (
   params: ValidarUsuarioParams
-): Promise<UsuarioResponse | LoginCath | null> => {
+): Promise<UsuarioResponse | CodeCath | null> => {
   try {
-    const response: AxiosResponse<UsuarioResponse | LoginCath | null> = await axios.post(
+    const response: AxiosResponse<UsuarioResponse | CodeCath | null> = await axios.post(
       recurso + "login",
       params,
       conexion.headers
@@ -47,9 +25,9 @@ const ValidarUsuario = async (
   }
 };
 
-const logout = async (): Promise<LoginCath | null> => {
+const logout = async (): Promise<CodeCath | null> => {
   try {
-    const response: AxiosResponse<LoginCath | null> = await axios.post(
+    const response: AxiosResponse<CodeCath | null> = await axios.post(
       recurso + "logout",
       conexion.headers
     );

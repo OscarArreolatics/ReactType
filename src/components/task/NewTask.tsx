@@ -11,7 +11,8 @@ import {
 import Grid from "@mui/material/Grid2";
 import { toast } from "react-toastify";
 import Task from "@/api/task";
-import projectApi, { ProjectI } from "@/api/project";
+import projectApi from "@/api/project";
+import { ProjectI } from "@/types/project";
 import "dayjs/locale/es";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";

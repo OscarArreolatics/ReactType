@@ -24,8 +24,10 @@ import dayjs, { Dayjs } from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { useDispatch } from "react-redux";
 import { setProjects } from "@/redux/slices/projectSlice";
-import userApi, { UserCoI } from "@/api/user";
-import tagApi, { TagI } from "@/api/tag";
+import userApi from "@/api/user";
+import { UserCoI } from "@/types/user";
+import tagApi from "@/api/tag";
+import { TagI } from "@/types/tag";
 import { getColorFromText } from "@/utils/utils";
 
 dayjs.extend(localizedFormat);

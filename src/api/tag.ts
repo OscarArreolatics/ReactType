@@ -1,24 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 import conexion from "./conexion";
 import { catchError } from "@/utils/utils";
+import { TagI, ParamsTags } from "@/types/tag";
+import { CodeCath } from "@/types/codeCath";
 
 const recurso: string = conexion.url + "tag/";
-
-export interface TagI {
-  _id: string;
-  title: string;
-  color: string;
-}
-
-interface ParamsTags {
-  title: string; 
-  color: string;
-}
-
-export interface CodeCath {
-  code: string,
-  msg: string
-}
 
 const getTags = async (): Promise<TagI[] | null> => {
   try {

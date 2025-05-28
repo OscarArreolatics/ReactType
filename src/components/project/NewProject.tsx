@@ -16,8 +16,10 @@ import {
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { toast } from "react-toastify";
 import project from "@/api/project";
-import userApi, { UserCoI } from "@/api/user";
-import tagApi, { TagI } from "@/api/tag";
+import userApi from "@/api/user";
+import { UserCoI } from "@/types/user";
+import tagApi from "@/api/tag";
+import { TagI } from "@/types/tag";
 import "dayjs/locale/es";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";

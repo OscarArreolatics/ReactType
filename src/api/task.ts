@@ -1,57 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import conexion from "./conexion";
 import { catchError } from "@/utils/utils";
+import { TaskI, ParamsTask } from "@/types/task";
 
 const recurso: string = conexion.url + "tasks/";
-
-export interface TaskI {
-  _id: string;
-  title: string;
-  description: string;
-  projectId: {
-    _id: string;
-    name: string;
-  };
-  assignedTo?: assignedTo;
-  stage: "planeacion" | "programacion" | "validacion" | "finalizada";
-  status: "pendiente" | "en progreso" | "completado" | "cancelada";
-  priority: "alta" | "media" | "baja";
-  dueDate?: Date;
-  completedAt: Date;
-  attachments: string[];
-  comments: {
-    userId: string;
-    comment: string;
-    createdAt: Date;
-  }[];
-  activityLog: {
-    action: string;
-    userId: string;
-    timestamp: Date;
-  }[];
-}
-
-export interface assignedTo {
-  _id: string;
-  name: string;
-}
-
-interface ParamsTask {
-  id?: string;
-  title?: string;
-  description?: string;
-  projectId?: string;
-  assignedTo?: string;
-  stage?: string;
-  status?: string;
-  priority?: string;
-  dueDate?: Date;
-}
-
-export interface CodeCath {
-  code: string;
-  msg: string;
-}
 
 const getTasksUser = async (): Promise<TaskI[] | null> => {
   try {

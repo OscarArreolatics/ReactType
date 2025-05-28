@@ -9,7 +9,8 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useEffect, useCallback, useState } from "react";
-import task, { TaskI } from "@/api/task";
+import task from "@/api/task";
+import { TaskI } from "@/types/task";
 import TableTasks from "@/components/task/TableTasks";
 
 const MyWork: React.FC = () => {

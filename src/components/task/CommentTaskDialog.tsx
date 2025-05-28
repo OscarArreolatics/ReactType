@@ -17,7 +17,8 @@ import { formatDate, getHours } from "@/utils/utils";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import commentsApi, { CommentI } from "@/api/comments";
+import commentsApi from "@/api/comments";
+import { CommentI } from "@/types/comments";
 
 interface CommentTaskDialogProps {
   comments: CommentI[];
