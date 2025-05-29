@@ -65,7 +65,7 @@ const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
 
   return (
     <>
-      <Card className="h-full relative pb-14 md:pb-6" variant="outlined">
+      <Card className="h-full relative" variant="outlined">
         <>
           <div className="absolute top-0 right-0 z-50">
             {User._id === project.createdBy._id && (
@@ -136,10 +136,10 @@ const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
         </>
 
         <Link to={"/project/" + project._id}>
-          <Grid container sx={{ height: "100%" }}>
+          <Grid container >
             <Grid
               size={1}
-              className="py-3"
+              className="py-0"
               sx={{ backgroundColor: project.color }}
             ></Grid>
             <Grid size={10} className="p-3 ">
@@ -185,7 +185,7 @@ const CardProject: React.FC<{ project: ProjectI }> = ({ project }) => {
             </Grid>
           </Grid>
 
-          <Grid container size={12} className="absolute bottom-0">
+          <Grid container size={12} >
             <Grid
               size={{ xs: 12, md: 6 }}
               className={
