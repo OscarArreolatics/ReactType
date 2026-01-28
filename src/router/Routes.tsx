@@ -10,6 +10,8 @@ import MyWork from "@/pages/task/MyWork";
 import Projects from "@/pages/project/Projects";
 import ProjectDetails from "@/pages/project/ProjectDetail"
 import Tags from "@/pages/tag/Tags";
+import Users from "@/pages/user/Users";
+import AdminHome from "@/pages/dashboard/Home";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -65,6 +67,22 @@ const AppRouter = () => {
         element={
           <ProtectedRoute roles={["admin","editor"]}>
             <Tags />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute roles={["admin"]}>
+            <Users />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute roles={["admin"]}>
+            <AdminHome />
           </ProtectedRoute>
         }
       />
