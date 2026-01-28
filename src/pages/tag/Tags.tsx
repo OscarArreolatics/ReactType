@@ -10,7 +10,6 @@ import tagApi from "@/api/tag";
 import TagChip from "@/components/tag/TagChip";
 import NewTag from "@/components/tag/TagNew";
 
-
 const Tags: React.FC = () => {
   const dispatch = useDispatch();
   const tags = useSelector((state: RootState) => state.tags.Tags);
@@ -30,7 +29,7 @@ const Tags: React.FC = () => {
   useEffect(() => {
     fetchTags();
   }, [fetchTags]);
-  
+
   return (
     <>
       <div className="bg-slate-200 pt-12 w-full">
@@ -41,9 +40,9 @@ const Tags: React.FC = () => {
               className="my-3 w-full p-3"
               sx={{ borderRadius: "0.5rem" }}
             >
-              <h1 className="text-3xl font-medium">Etiquetas</h1>
-              <CardContent className="my-4" sx={{ padding: 0 }}>
-                <div className="mb-7">
+              <div className="flex justify-between">
+                <h1 className="text-3xl font-medium">Etiquetas</h1>
+                <div>
                   <Button
                     variant="contained"
                     color="success"
@@ -53,6 +52,8 @@ const Tags: React.FC = () => {
                     Nueva Etiqueta
                   </Button>
                 </div>
+              </div>
+              <CardContent className="my-4" sx={{ padding: 0 }}>
                 <div className="border-2 rounded-md border p-6">
                   {tags.map((tag) => (
                     <TagChip key={tag._id} tag={tag} />
@@ -63,9 +64,10 @@ const Tags: React.FC = () => {
           </div>
           {/* dialog new tag */}
           <NewTag
-           open={newTags}
-           onSave={fetchTags}
-           onClose={() => setNewTags(false)}/>
+            open={newTags}
+            onSave={fetchTags}
+            onClose={() => setNewTags(false)}
+          />
         </Sidebar>
       </div>
     </>

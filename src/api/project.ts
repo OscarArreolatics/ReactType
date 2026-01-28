@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import conexion from "./conexion";
 import { catchError } from "@/utils/utils";
-import { ProjectI, ParamsProject } from "@/types/project";
+import { ProjectI, ParamsProject, ProjectTaskReportI } from "@/types/project";
 import { CodeCath } from "@/types/codeCath";
 
 const recurso: string = conexion.url + "project/";
@@ -11,7 +11,7 @@ const recurso: string = conexion.url + "project/";
 const getProjects = async (): Promise<ProjectI[] | null> => {
   try {
     const response: AxiosResponse<ProjectI[] | null> = await axios.get(
-      recurso,
+      recurso+"user",
       {
         withCredentials: true,
       }
@@ -91,4 +91,19 @@ const deleteProject = async (id: string): Promise<CodeCath | null> => {
   }
 };
 
-export default { getProjects, createProject, getAProject, updateProject, deleteProject };
+const getProjectsTaskReport = async (): Promise<ProjectTaskReportI[] | null> => {
+  try {
+    const response: AxiosResponse<ProjectTaskReportI[] | null> = await axios.get(
+      recurso+"taskReport",
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    catchError(error);
+    return null;
+  }
+}
+
+export default { getProjects, createProject, getAProject, updateProject, deleteProject, getProjectsTaskReport };

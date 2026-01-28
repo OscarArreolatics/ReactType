@@ -34,3 +34,14 @@ export interface ParamsProject {
   endDate?: Date | null;
   status?: string;
 }
+
+export interface ProjectTaskReportI {
+  _id: string;
+  name: string;
+  description: string;
+  createdBy: collaborator;
+  completadas: number;
+  pendientes: number;
+  en_proceso: number;
+  canceladas: number;
+}

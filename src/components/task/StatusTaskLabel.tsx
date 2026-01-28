@@ -22,7 +22,7 @@ const StatusTaskLabel: React.FC<labelprops> = ({ type, idTask }) => {
         return "bg-slate-400";
       case "en progreso":
         return "bg-emerald-400";
-      case "completado":
+      case "completada":
         return "bg-blue-400";
       case "cancelada":
         return "bg-red-400";
@@ -37,7 +37,7 @@ const StatusTaskLabel: React.FC<labelprops> = ({ type, idTask }) => {
         return <AlarmsIcon />;
       case "en progreso":
         return <PlayIcon />;
-      case "completado":
+      case "completada":
         return <CheckIcon />;
       case "cancelada":
         return <BlockIcon />;
@@ -55,7 +55,7 @@ const StatusTaskLabel: React.FC<labelprops> = ({ type, idTask }) => {
       color: "bg-emerald-400",
       icon: <PlayIcon />,
     },
-    { id: 3, status: "completado", color: "bg-blue-400", icon: <CheckIcon /> },
+    { id: 3, status: "completada", color: "bg-blue-400", icon: <CheckIcon /> },
     { id: 4, status: "cancelada", color: "bg-red-400", icon: <BlockIcon /> },
   ];
 
