@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import { Menu, ChevronLeft, ChevronRight, BackupTableOutlined, AssignmentOutlined, Style, Group } from "@mui/icons-material";
+import { Menu, ChevronLeft, ChevronRight, BackupTableOutlined, AssignmentOutlined, Style, Group, Dashboard } from "@mui/icons-material";
 import AvatarMenu from "@/components/avatar/AvatarMenu";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -126,7 +126,8 @@ const Padre: React.FC<PadreProps> = ({ children }) => {
     { title: "Mi trabajo", icon: <AssignmentOutlined />, to: "/mywork" },
     { title: "Proyectos", icon: <BackupTableOutlined />, to: "/projects" },
     { title: "Etiquetas", icon: <Style />, to: "/tags", auth: ["admin"] },
-    { title: "Usuarios", icon: <Group />, to: "/tags", auth: ["admin"] },
+    { title: "Usuarios", icon: <Group />, to: "/users", auth: ["admin"] },
+    { title: "Dashboard", icon: <Dashboard />, to: "/dashboard", auth: ["admin"] },
   ];
 
   interface item {
